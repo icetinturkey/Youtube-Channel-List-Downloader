@@ -11,11 +11,11 @@
 	else {xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");}
 	xmlhttp.onreadystatechange=function() {
 	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-    document.getElementById("loadedDiv").innerHTML = xmlhttp.responseText;
+		const obj = JSON.parse(xmlhttp.responseText);
+    document.getElementById("loadedDiv").innerHTML = obj[1].id;
     }
 	}
-	xmlhttp.setRequestHeader "Cookie", "POESESSID=1bb59e547bb7afc12e6d4bfaa1452b51"
-	xmlhttp.open("GET","https://www.pathofexile.com/guild/profile/297203",true);
+	xmlhttp.open("GET","http://api.pathofexile.com/leagues?type=main&compact=1",true);
 	xmlhttp.send();
       });
   </script>
