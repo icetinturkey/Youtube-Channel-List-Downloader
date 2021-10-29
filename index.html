@@ -11,10 +11,10 @@
 	else {xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");}
 	xmlhttp.onreadystatechange=function() {
 	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-    document.getElementById("loadedDiv").innerHTML = xmlhttp.responseText;
+    document.getElementById("loadedDiv").innerText = xmlhttp.responseText;
     }
 	}
-	xmlhttp.open("GET","https://api.pathofexile.com/leagues?type=main&compact=1",true);
+	xmlhttp.open("GET","https://www.pathofexile.com/guild/profile/297203",true);
 	xmlhttp.send();
       });
   </script>
