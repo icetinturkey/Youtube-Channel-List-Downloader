@@ -2,9 +2,20 @@
 <html>
 <body>
 <h1>Guild Anatolia Panel Project</h1>
-<div id="loadedDiv"></div>
-
-
+<i><p id="statusDiv"></p></i>
+<style>
+td,th{
+border:1px solid black;
+}
+</style>
+<table style="border:1px solid black;border-collapse:collapse;" id="loadedDiv">
+<tr>
+<th>Lig Adı</th>
+<th>Başlangıç Tarihi</th>
+<th>Bitiş Tarihi</th>
+<th>URL</th>
+</tr>
+</table>
 </body>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -17,13 +28,19 @@
 		for (var o in obj) {
 			count = count + 1;
 		}
-		document.getElementById("loadedDiv").innerHTML += "Object Count="+count+"</br></br>";
+		document.getElementById("statusDiv").innerHTML = "Object Count="+count;
 		for(a=0;a<count;a++){
-		document.getElementById("loadedDiv").innerHTML += obj[a].id+"</br>";
+		var bas_tarih = obj[a].startAt.split('T');
+		var bit_tarih = obj[a].startAt.split('T');
+		bit_tarih[0]="";
+		if (obj[a].endAt !== null) {
+			var bit_tarih = obj[a].endAt.split('T');
 		}
-	    }
+		document.getElementById("loadedDiv").innerHTML += "<tr><td>"+obj[a].id+"</td><td>"+bas_tarih[0]+"</td><td>"+bit_tarih[0]+"</td><td><a href='"+obj[a].url+"'>"+obj[a].url+"</a></td></tr>";
+		}
+    }
 	}
-	xmlhttp.open("GET","https://api.pathofexile.com/leagues?type=main&compact=1",true);
+	xmlhttp.open("GET","http://api.pathofexile.com/leagues?type=main&compact=1",true);
 	xmlhttp.send();
       });
   </script>
