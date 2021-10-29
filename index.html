@@ -11,9 +11,10 @@
 	else {xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");}
 	xmlhttp.onreadystatechange=function() {
 	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-    document.getElementById("loadedDiv").innerTEXT = xmlhttp.responseText;
+    document.getElementById("loadedDiv").innerHTML = xmlhttp.responseText;
     }
 	}
+	xmlhttp.setRequestHeader "Cookie", "POESESSID=1bb59e547bb7afc12e6d4bfaa1452b51"
 	xmlhttp.open("GET","https://www.pathofexile.com/guild/profile/297203",true);
 	xmlhttp.send();
       });
