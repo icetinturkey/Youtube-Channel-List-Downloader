@@ -2,8 +2,8 @@
 <html>
 <body>
 <h1>Guild Anatolia Panel Project</h1>
-<div id="loadedDiv" style="border:1px solid black;height:50px;"></div>
-<div id="loadedDiv2" style="border:1px solid red;height:50px;"></div>
+<div id="loadedDiv"></div>
+
 
 </body>
   <script>
@@ -12,10 +12,16 @@
 	else {xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");}
 	xmlhttp.onreadystatechange=function() {
 	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-		var obj = JSON.parse("{ 'ligler' : "+xmlhttp.responseText+"}");
-    document.getElementById("loadedDiv").innerHTML = obj.ligler[0].id;
-		document.getElementById("loadedDiv2").innerHTML = obj.ligler[1].id;
-    }
+		var obj = JSON.parse(xmlhttp.responseText);
+		let count = 0;
+		for (var o in obj) {
+			count = count + 1;
+		}
+		document.getElementById("loadedDiv").innerHTML += "Object Count="+count+"</br></br>";
+		for(a=0;a<count;a++){
+		document.getElementById("loadedDiv").innerHTML += obj[a].id+"</br>";
+		}
+	    }
 	}
 	xmlhttp.open("GET","http://api.pathofexile.com/leagues?type=main&compact=1",true);
 	xmlhttp.send();
