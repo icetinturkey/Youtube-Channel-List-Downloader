@@ -1,3 +1,3 @@
-**Guild Anatolia Panel - Online Project**
+**Youtube Channel List Downloader**
 
 ###### :warning: Work in progress ...
