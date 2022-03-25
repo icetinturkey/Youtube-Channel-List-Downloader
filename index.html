@@ -83,24 +83,33 @@ body {
 	line-height:40px;
 	color:#fff;
 	font-size:14px;
+	display: -webkit-box;
+   display: -moz-box;
+   display: -ms-flexbox;
+   display: -webkit-flex;
+   display: flex;
+	justify-content:space-between;
 }
 .clear_div {
 	clear:both;
 }
 .header_logo {
-	float:left;
 	font-weight:bold;
-	padding-left:20px;
+	padding-left:10px;
 }
 .header_key {
-	float:right;
-	padding-right:20px;
+	padding-right:10px;
+	display:none;
+	visibility:hidden;
 }
-.header_key input {
-	width:300px;
+.header_key img{
+	height:36px;
+	width:36px;
+	margin-top:2px;
+	padding-right:4px;
 }
 .finder_top {
-	margin-top:20px;
+	margin-top:5px;
 	display: -webkit-box;
    display: -moz-box;
    display: -ms-flexbox;
@@ -110,26 +119,10 @@ body {
 	flex-wrap: nowrap;
 }
 .finder_top div {
-	padding: 6px;
+	padding: 4px;
 }
 .finder_top input {
 	width:400px;
-}
-.finder_bottom {
-	margin-top:20px;
-	display: -webkit-box;
-   display: -moz-box;
-   display: -ms-flexbox;
-   display: -webkit-flex;
-   display: flex;
-	justify-content:center;
-	flex-wrap: nowrap;
-}
-.finder_bottom div {
-	padding: 6px;
-}
-.finder_bottom input {
-	width:300px;
 }
 .downloader_mid {
 	padding:10px;
@@ -147,44 +140,38 @@ body {
    display: -webkit-flex;
    display: flex;
 	justify-content:space-between;
-	flex-wrap: nowrap;
+
 }
 </style>
 <div class="header">
 <div class="header_logo">Youtube Channel List Downloader</div>
-<div class="header_key">
-Youtube API KEY:&nbsp;<input type="text" name="apikey" id="apikey" placeholder="AIzaSyDHX6aF36rldbJ1cEENE2Zw1Sk071c8n56" />
+<div class="header_key" id="header_key">
+<img src="" id="header_img" />
+<div id="header_text"></div>
 </div>
-<div class="clear_div"></div>
 </div>
 <div class="warpper">
-  <input class="radio" id="one" name="group" type="radio" checked />
-  <input class="radio" id="two" name="group" type="radio" />
+  <input class="radio" id="two" name="group" type="radio" checked />
   <input class="radio" id="three" name="group" type="radio" />
   <div class="tabs">
-  <label class="tab" id="one-tab" for="one">Finder</label>
   <label class="tab" id="two-tab" for="two">Downloader</label>
-  <label class="tab" id="three-tab" for="three">Encoder</label>
+  <label class="tab" id="three-tab" for="three">Decoder</label>
     </div>
   <div class="panels">
-  <div class="panel" id="one-panel">
-    <div class="panel-title">֍ Find Playlist ID ֍</div>
-	<div class="finder_top">
-		<div>Channel Link:</div>
-		<div><input type="text" name="cLink" id="cLink" placeholder="www.youtube.com/channel/UCFtEEv80fQVKkD4h1PF-Xqw" /></div>
-		<div><button type="button" onclick="getChannelId()">Get Playlist ID</button></div>
-	</div>
-	<div class="finder_bottom">
-		<div>Result:</div>
-		<div><input type="text" name="cId" id="cId" /></div>
-		<div><button type="button" id="finder_btn2">Copy</button></div>
-	</div>
-  </div>
   <div class="panel" id="two-panel">
     <div class="panel-title">֍ Download Channel Data ֍</div>
-    <div class="finder_top">
+	<div class="finder_top" id="finder_top2">
+		<div>Youtube API KEY:</div>
+		<div><input type="text" name="apikey" id="apikey" placeholder="AIzaSyDHX6aF36rldbJ1cEENE2Zw1Sk071c8n56" /></div>
+	</div>
+	<div class="finder_top" id="finder_top">
+		<div>Channel Link:</div>
+		<div><input type="text" name="cLink" id="cLink" placeholder="youtube.com/channel/UCFtEEv80fQVKkD4h1PF-Xqw" /></div>
+		<div><button type="button" onclick="getChannelId()">Get Playlist ID</button></div>
+	</div>
+    <div class="finder_top" id="downloader_top">
 		<div>Playlist ID:</div>
-		<div><input type="text" name="downloaderCID" id="downloaderCID" placeholder="UUFtEEv80fQVKkD4h1PF-Xqw" /></div>
+		<div><input type="text" name="downloaderCID" id="downloaderCID" style="pointer-events: none" /></div>
 		<div><button type="button" onclick="getVideos()">Get 50 Data</button></div>
 	</div>
 	<div class="downloader_mid">
@@ -197,7 +184,7 @@ Youtube API KEY:&nbsp;<input type="text" name="apikey" id="apikey" placeholder="
 	</div>
   </div>
   <div class="panel" id="three-panel">
-    <div class="panel-title">֍ Encode Data File ֍</div>
+    <div class="panel-title">֍ Decode Data File ֍</div>
     <div class="finder_top" id="encoder_top">
 		<div><input type='file' id='fileinput' /></div>
 		<div><button type="button" id="btnLoad" onclick="loadFile()">Inject</button></div>
@@ -220,12 +207,9 @@ afterPageLoad = () => {
 	}else{document.getElementById("apikey").value = localStorage.getItem('YCLD_key');}
 	if (localStorage.getItem('YCLD_last') === undefined || localStorage.getItem('YCLD_last') === null) {
 	}else{document.getElementById("lastClickedText").innerText = "Last Watched Video ID: "+localStorage.getItem('YCLD_last');}
-	document.getElementById("finder_btn2").addEventListener("click", function(event){
-		document.getElementById("cId").focus();
-		document.getElementById("cId").select();
-		document.execCommand('copy');
-	});
 	document.getElementById("saveBtn").addEventListener('click', saveTextAsFile);
+	document.getElementById("downloader_top").style.visibility = "hidden";
+	document.getElementById("downloader_top").style.display = "none";
 }
 function getChannelId(){
 	if(document.getElementById("cLink").value.length>10&&document.getElementById("apikey").value.length>10){
@@ -238,14 +222,30 @@ function getChannelId(){
 	var xhr1 = new XMLHttpRequest();
 	xhr1.addEventListener('load', () => {
 		var sonuc = JSON.parse(xhr1.responseText);
+		if (typeof sonuc.error !== 'undefined') {
+			alert("Error:" + sonuc.error.message);
+		}else{
 		if(sonuc.pageInfo.totalResults!="0"){
 		var channelIdFinal = sonuc.items[0].contentDetails.relatedPlaylists.uploads;
-		document.getElementById("cId").value = channelIdFinal;
+		document.getElementById("downloaderCID").value = channelIdFinal;
+		document.getElementById("downloader_top").style.visibility = "visible";
+		document.getElementById("downloader_top").style.display = "flex";
+		document.getElementById("finder_top").style.visibility = "hidden";
+		document.getElementById("finder_top").style.display = "none";
+		document.getElementById("finder_top2").style.visibility = "hidden";
+		document.getElementById("finder_top2").style.display = "none";
 		localStorage.setItem('YCLD_key', api_key);
-		}else{alert("wrong link format !");}
+		document.getElementById("header_img").src = sonuc.items[0].snippet.thumbnails.default.url;
+		document.getElementById("header_key").style.visibility = "visible";
+		document.getElementById("header_key").style.display = "flex";
+		document.getElementById("header_text").innerHTML = sonuc.items[0].snippet.title;
+		}
+		else{
+			alert("wrong link format !");
+		}}
 		document.getElementById("cLink").value = "";
 	});
-	xhr1.open("GET", "https://www.googleapis.com/youtube/v3/channels?id="+lastLink+"&key="+api_key+"&part=contentDetails", true);
+	xhr1.open("GET", "https://www.googleapis.com/youtube/v3/channels?id="+lastLink+"&key="+api_key+"&part=contentDetails,snippet", true);
 	xhr1.send();
 	}else{alert("missing input texts !");}
 }
