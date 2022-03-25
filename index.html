@@ -14,7 +14,7 @@ body {
 	margin:0;
 	padding:0;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-	min-width:800px;
+	min-width:600px;
 }
 .ag-theme-alpine .ag-row {
 	font-size: 14px !important;
@@ -84,71 +84,125 @@ body {
 	color:#fff;
 	font-size:14px;
 	display: -webkit-box;
-   display: -moz-box;
-   display: -ms-flexbox;
-   display: -webkit-flex;
-   display: flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
 	justify-content:space-between;
-}
-.clear_div {
-	clear:both;
 }
 .header_logo {
 	font-weight:bold;
 	padding-left:10px;
 }
-.header_key {
+.header_buttons {
 	padding-right:10px;
-	display:none;
-	visibility:hidden;
 }
-.header_key img{
+.header_info {
+	padding-right:10px;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	visibility:hidden;
+	display:none;
+}
+.header_info img{
 	height:36px;
 	width:36px;
 	margin-top:2px;
 	padding-right:4px;
 }
-.finder_top {
+.header_radios {
+	float:left;
+	line-height:10px;
+	font-size:12px;
+	padding-left:2px;
+}
+.encoder_top {
 	margin-top:5px;
 	display: -webkit-box;
-   display: -moz-box;
-   display: -ms-flexbox;
-   display: -webkit-flex;
-   display: flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
 	justify-content:center;
 	flex-wrap: nowrap;
 }
-.finder_top div {
-	padding: 4px;
-}
-.finder_top input {
-	width:400px;
-}
-.downloader_mid {
+.ag-theme-alpine {
+	height:500px;
+	width:100%;
 	padding:10px;
 }
-.downloader_mid textarea {
+.downloaderContainer {
+	display:none;
+	visibility:hidden;
+	padding-top:10px;
+	margin:0 auto;
 	width:100%;
 }
-.downloader_bottom {
-	padding-top:10px;
-	padding-left:10px;
-	padding-right:10px;
+.downloaderContainer textarea{
+	width:99%;
+}
+.downloaderContainer input {
+	pointer-events: none;
+	margin:5px;
+	width:400px;
+}
+.downloaderUpper {
 	display: -webkit-box;
-   display: -moz-box;
-   display: -ms-flexbox;
-   display: -webkit-flex;
-   display: flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	justify-content:center;
+}
+.downloaderUpper button {
+	padding:5px;
+	cursor:pointer;
+}
+.downloaderBottom {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
 	justify-content:space-between;
-
+}
+.downloaderBottom button {
+	padding:5px;
+	cursor:pointer;
+}
+.finderContainer {
+	padding-top:10px;
+	margin:0 auto;
+}
+.finderContainer input {
+	width:400px;
+}
+.finderContainer button {
+	margin:0 auto;
+	display:block;
+	cursor:pointer;
+	padding:5px;
+	margin-top:5px;
 }
 </style>
 <div class="header">
-<div class="header_logo">Youtube Channel List Downloader</div>
-<div class="header_key" id="header_key">
-<img src="" id="header_img" />
-<div id="header_text"></div>
-</div>
+	<div class="header_logo">Youtube Channel List Downloader</div>
+	<div class="header_buttons" id="header_buttons">
+		<div style="float:left">API Level:</div>
+		<div class="header_radios">
+			<input type="radio" id="r_official" name="api_level" value="Official" onchange="changeApilevel()" checked />
+			<label for="r_official">Official</label><br>
+			<input type="radio" id="r_unofficial" name="api_level" value="Unofficial" onchange="changeApilevel()" />
+			<label for="r_unofficial">Unofficial</label>
+		</div>
+	</div>
+	<div class="header_info" id="header_info">
+		<img src="" id="header_img" alt="" />
+		<div id="header_text">Undefined Info</div>
+	</div>
 </div>
 <div class="warpper">
   <input class="radio" id="two" name="group" type="radio" checked />
@@ -160,97 +214,67 @@ body {
   <div class="panels">
   <div class="panel" id="two-panel">
     <div class="panel-title">֍ Download Channel Data ֍</div>
-	<div class="finder_top" id="finder_top2">
-		<div>Youtube API KEY:</div>
-		<div><input type="text" name="apikey" id="apikey" placeholder="AIzaSyDHX6aF36rldbJ1cEENE2Zw1Sk071c8n56" /></div>
-	</div>
-	<div class="finder_top" id="finder_top">
-		<div>Channel Link:</div>
-		<div><input type="text" name="cLink" id="cLink" placeholder="youtube.com/channel/UCFtEEv80fQVKkD4h1PF-Xqw" /></div>
-		<div><button type="button" onclick="getChannelId()">Get Playlist ID</button></div>
-	</div>
-    <div class="finder_top" id="downloader_top">
-		<div>Playlist ID:</div>
-		<div><input type="text" name="downloaderCID" id="downloaderCID" style="pointer-events: none" /></div>
-		<div><button type="button" onclick="getVideos()">Get 50 Data</button></div>
-	</div>
-	<div class="downloader_mid">
-		<textarea name="Text1" id="Text1" rows="20"></textarea>
-	</div>
-	<div class="downloader_bottom">
-		<div id="nextPageInput"></div>
-		<div><button type="button" id="saveBtn">Save Data</button></div>
-		<div id="lastPositionInput"></div>
-	</div>
+	<table id="finderContainer" class="finderContainer">
+	<tr>
+	<td id="apikey_text">Youtube API Key:</td>
+	<td id="apikey_input"><input type="text" name="apikey" id="apikey" placeholder="AIzaSyDHX6aF36rldbJ1cEENE2Zw1Sk071c8n56" /></td>
+	</tr>
+	<tr>
+	<td>Channel Link:</td>
+	<td><input type="text" name="cLink" id="cLink" placeholder="www.youtube.com/channel/UCFtEEv80fQVKkD4h1PF-Xqw" /></td>
+	</tr>
+	<tr>
+	<td colspan="2"><button type="button" onclick="editChannelLink()">Get Playlist ID</button></td>
+	</tr>
+	</table>
+	<table id="downloaderContainer" class="downloaderContainer">
+	<tr>
+		<td colspan="3">
+			<div class="downloaderUpper">
+				<div style="margin:5px;">Playlist ID:</div>
+				<div><input type="text" name="downloaderCID" id="downloaderCID" /></div>
+				<div><button type="button" onclick="getVideos()" id="get50DataBtn">Get 50 Data</button></div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3"><textarea name="Text1" id="Text1" rows="20"></textarea></td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			<div class="downloaderBottom">
+				<div id="nextPageInput" style="padding-left:10px"></div>
+				<div><button type="button" id="saveBtn" onclick="saveTextAsFile()">Save Data</button></div>
+				<div id="lastPositionInput" style="padding-right:10px"></div>
+			</div>
+		</td>
+	</tr>
+	</table>
   </div>
   <div class="panel" id="three-panel">
     <div class="panel-title">֍ Decode Data File ֍</div>
-    <div class="finder_top" id="encoder_top">
+    <div class="encoder_top" id="encoder_top">
 		<div><input type='file' id='fileinput' /></div>
 		<div><button type="button" id="btnLoad" onclick="loadFile()">Inject</button></div>
 	</div>
-	<div class="downloader_mid">
-		<div id="myGrid" style="height: 500px; width:100%;" class="ag-theme-alpine"></div>
+	<div>
+		<div id="myGrid" class="ag-theme-alpine"></div>
 	</div>
-		<div class="downloader_bottom">
-		<div></div>
-		<div id="lastClickedText"></div>
-		<div></div>
-	</div>
+	<div style="text-align:center" id="lastClickedText"></div>
   </div>
   </div>
 </div>
 <script>
 var ilkKayitDegil=false;
+var apiLevel = 0;
 afterPageLoad = () => {
 	if (localStorage.getItem('YCLD_key') === undefined || localStorage.getItem('YCLD_key') === null) {
 	}else{document.getElementById("apikey").value = localStorage.getItem('YCLD_key');}
 	if (localStorage.getItem('YCLD_last') === undefined || localStorage.getItem('YCLD_last') === null) {
 	}else{document.getElementById("lastClickedText").innerText = "Last Watched Video ID: "+localStorage.getItem('YCLD_last');}
-	document.getElementById("saveBtn").addEventListener('click', saveTextAsFile);
-	document.getElementById("downloader_top").style.visibility = "hidden";
-	document.getElementById("downloader_top").style.display = "none";
-}
-function getChannelId(){
-	if(document.getElementById("cLink").value.length>10&&document.getElementById("apikey").value.length>10){
-	var api_key = document.getElementById("apikey").value;
-	var channelLink = document.getElementById("cLink").value.split('/');
-	var lastLink;
-	channelLink.forEach(function(item) {
-		lastLink = item;
-	});
-	var xhr1 = new XMLHttpRequest();
-	xhr1.addEventListener('load', () => {
-		var sonuc = JSON.parse(xhr1.responseText);
-		if (typeof sonuc.error !== 'undefined') {
-			alert("Error:" + sonuc.error.message);
-		}else{
-		if(sonuc.pageInfo.totalResults!="0"){
-		var channelIdFinal = sonuc.items[0].contentDetails.relatedPlaylists.uploads;
-		document.getElementById("downloaderCID").value = channelIdFinal;
-		document.getElementById("downloader_top").style.visibility = "visible";
-		document.getElementById("downloader_top").style.display = "flex";
-		document.getElementById("finder_top").style.visibility = "hidden";
-		document.getElementById("finder_top").style.display = "none";
-		document.getElementById("finder_top2").style.visibility = "hidden";
-		document.getElementById("finder_top2").style.display = "none";
-		localStorage.setItem('YCLD_key', api_key);
-		document.getElementById("header_img").src = sonuc.items[0].snippet.thumbnails.default.url;
-		document.getElementById("header_key").style.visibility = "visible";
-		document.getElementById("header_key").style.display = "flex";
-		document.getElementById("header_text").innerHTML = sonuc.items[0].snippet.title;
-		}
-		else{
-			alert("wrong link format !");
-		}}
-		document.getElementById("cLink").value = "";
-	});
-	xhr1.open("GET", "https://www.googleapis.com/youtube/v3/channels?id="+lastLink+"&key="+api_key+"&part=contentDetails,snippet", true);
-	xhr1.send();
-	}else{alert("missing input texts !");}
 }
 function saveTextAsFile() {
-  var textToWrite = document.getElementById('Text1').value;
+  var textToWrite = '{"title":"'+document.getElementById("header_text").innerHTML+'","img":"'+document.getElementById("header_img").src+'","results":['+document.getElementById('Text1').value+']}';
   var textFileAsBlob = new Blob([ textToWrite ], { type: 'text/plain' });
   var fileNameToSaveAs = "data.json";
   var downloadLink = document.createElement("a");
@@ -266,26 +290,6 @@ function saveTextAsFile() {
   }
   downloadLink.click();
 }
-function getVideos(){
-	var lastPosition = "";
-	var api_key = document.getElementById("apikey").value;
-	var nextPage = document.getElementById("nextPageInput").innerText;
-	var xhr2 = new XMLHttpRequest();
-	xhr2.addEventListener('load', () => {
-		var sonuc = JSON.parse(xhr2.responseText);
-		document.getElementById("nextPageInput").innerText = sonuc.nextPageToken;
-		sonuc.items.forEach(function(item) {
-			if(ilkKayitDegil){document.getElementById("Text1").value += ",";}
-			else{ilkKayitDegil=true;}
-			document.getElementById("Text1").value += JSON.stringify(item);
-			lastPosition = item.snippet.position;
-		});
-		document.getElementById("lastPositionInput").innerText = lastPosition + "/" + sonuc.pageInfo.totalResults;
-		localStorage.setItem('YCLD_key', api_key);
-	});
-	xhr2.open("GET", "https://www.googleapis.com/youtube/v3/playlistItems?playlistId="+document.getElementById("downloaderCID").value+"&key="+api_key+"&part=snippet&maxResults=50&pageToken="+nextPage, true);
-	xhr2.send();
-}
 function loadFile(){
 	var input, file, fr;
 	input = document.getElementById('fileinput');
@@ -295,7 +299,13 @@ function loadFile(){
 	fr.readAsText(file);
 	function receivedText(e) {
 		let lines = e.target.result;
-		var sonuc = JSON.parse('{"results":['+lines+']}'); 
+		var sonuc = JSON.parse(lines);
+		//document.getElementById("header_buttons").style.visibility = "hidden";
+		//document.getElementById("header_buttons").style.display = "none";
+		document.getElementById("header_info").style.visibility = "visible";
+		document.getElementById("header_info").style.display = "flex";
+		document.getElementById("header_img").src = sonuc.img;
+		document.getElementById("header_text").innerHTML = sonuc.title;
 		const columnDefs = [
 			{ field: "id", sortable: true,resizable: true, width:100},
 			{ field: "tarih", sortable: true,resizable: true, width:150},
@@ -336,6 +346,114 @@ class MoodRenderer {
 function uLC(event){
 	document.getElementById("lastClickedText").innerHTML = "Last Watched Video ID: "+event.attributes['tag'].value;
 	localStorage.setItem('YCLD_last', event.attributes['tag'].value);
+}
+function changeApilevel(){
+	if(document.getElementById('r_official').checked){
+		apiLevel = 0;
+		document.getElementById("apikey_text").style.visibility = "visible";
+		document.getElementById("apikey_input").style.visibility = "visible";
+	}else{
+		apiLevel = 1;
+		document.getElementById("apikey_text").style.visibility = "hidden";
+		document.getElementById("apikey_input").style.visibility = "hidden";
+	}
+}
+function editChannelLink(){
+	var yApiKey = document.getElementById("apikey").value;
+	var channelLink = document.getElementById("cLink").value;
+	var finalChannelLink = "";
+	var validLinkEntry = false;
+	if(apiLevel==0){
+		if(yApiKey.length>10&&channelLink.length>10&&channelLink.indexOf("youtube.com/")>-1){validLinkEntry = true;}
+		else{alert("missing or invalid inputs !");}
+	}
+	if(apiLevel==1){
+		if(channelLink.length>10&&channelLink.indexOf("youtube.com/")>-1){validLinkEntry = true;}
+		else{alert("missing or invalid inputs !");}
+	}
+	if(validLinkEntry){
+		var noCustomUrl = channelLink.indexOf("/channel/");
+		if(noCustomUrl>0){
+			finalChannelLink = channelLink.substring(noCustomUrl+9);
+			finalChannelLink = finalChannelLink.replace('/', '');
+			getPlaylistId(finalChannelLink);
+		}else{
+			if(apiLevel==0){alert("Custom urls are not allowed on Official Api Level !");}
+			else{
+				if(channelLink.indexOf("www")<0){channelLink = "https://www."+channelLink;}
+				else if(channelLink.indexOf("http")<0){channelLink = "https://"+channelLink;}
+				if(channelLink.indexOf("/",channelLink.length-1)>-1){channelLink = channelLink.slice(0, -1);}
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var birinciArama = this.responseText.indexOf("ytInitialData");
+					if(birinciArama>0){
+						var ikinciArama = this.responseText.indexOf("</scrip", birinciArama);
+						var sonuc = JSON.parse(this.responseText.substring(birinciArama+16,ikinciArama-1));
+						finalChannelLink = sonuc.header.c4TabbedHeaderRenderer.channelId;
+						getPlaylistId(finalChannelLink);
+					}else{alert("channel not found !");}
+				}};
+				xhttp.open("GET", "https://ycldservice.ycld.workers.dev/?"+channelLink+"/about", true);
+				xhttp.send();
+			}
+		}
+	}
+}
+
+function getPlaylistId(mChannelId){
+	var yApiKey = document.getElementById("apikey").value;
+	var xhr1 = new XMLHttpRequest();
+	xhr1.addEventListener('load', () => {
+		var sonuc = JSON.parse(xhr1.responseText);
+		if (typeof sonuc.error !== 'undefined') {
+			alert(sonuc.error.message);
+		}else{
+		if(sonuc.pageInfo.totalResults!="0"){
+		var playlistIdFinal = sonuc.items[0].contentDetails.relatedPlaylists.uploads;
+		document.getElementById("downloaderCID").value = playlistIdFinal;
+		document.getElementById("downloaderContainer").style.visibility = "visible";
+		document.getElementById("downloaderContainer").style.display = "table";
+		document.getElementById("finderContainer").style.visibility = "hidden";
+		document.getElementById("finderContainer").style.display = "none";
+		document.getElementById("header_buttons").style.visibility = "hidden";
+		document.getElementById("header_buttons").style.display = "none";
+		document.getElementById("header_info").style.visibility = "visible";
+		document.getElementById("header_info").style.display = "flex";
+		document.getElementById("header_img").src = sonuc.items[0].snippet.thumbnails.default.url;
+		document.getElementById("header_text").innerHTML = sonuc.items[0].snippet.title;
+		if(apiLevel==0){localStorage.setItem('YCLD_key', yApiKey);}
+		}
+		else{
+			alert("channel not found !");
+		}}
+		document.getElementById("cLink").value = "";
+	});
+	if(apiLevel==0){xhr1.open("GET", "https://www.googleapis.com/youtube/v3/channels?id="+mChannelId+"&key="+yApiKey+"&part=contentDetails,snippet", true);}
+	if(apiLevel==1){xhr1.open("GET", "https://ycldservice.ycld.workers.dev/?https://yt.lemnoslife.com/noKey/channels?id="+mChannelId+"&part=contentDetails,snippet", true);}
+	xhr1.send();
+}
+
+function getVideos(){
+	document.getElementById("get50DataBtn").style.visibility = "hidden";
+	var lastPosition = "";
+	var yApiKey = document.getElementById("apikey").value;
+	var xhr2 = new XMLHttpRequest();
+	xhr2.addEventListener('load', () => {
+		var sonuc = JSON.parse(xhr2.responseText);
+		document.getElementById("nextPageInput").innerText = sonuc.nextPageToken;
+		sonuc.items.forEach(function(item) {
+			if(ilkKayitDegil){document.getElementById("Text1").value += ",";}
+			else{ilkKayitDegil=true;}
+			document.getElementById("Text1").value += JSON.stringify(item);
+			lastPosition = item.snippet.position;
+		});
+		document.getElementById("lastPositionInput").innerText = lastPosition + "/" + sonuc.pageInfo.totalResults;
+		document.getElementById("get50DataBtn").style.visibility = "visible";
+	});
+	if(apiLevel==0){xhr2.open("GET", "https://www.googleapis.com/youtube/v3/playlistItems?playlistId="+document.getElementById("downloaderCID").value+"&key="+yApiKey+"&part=snippet&maxResults=50&pageToken="+document.getElementById("nextPageInput").innerText, true);}
+	if(apiLevel==1){xhr2.open("GET", "https://ycldservice.ycld.workers.dev/?https://yt.lemnoslife.com/noKey/playlistItems?playlistId="+document.getElementById("downloaderCID").value+"&part=snippet&maxResults=50&pageToken="+document.getElementById("nextPageInput").innerText, true);}
+	xhr2.send();
 }
 </script>
 </body>
